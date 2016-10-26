@@ -3,6 +3,9 @@ package com.example.lenovo.myapplication;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,12 +65,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.VH> {
 
             this.vhContext = context;
             this.vhDataSet = vhDataSet;
-
+            textView = (TextView) itemView.findViewById(R.id.count);
 
             imageView = (ImageView) itemView.findViewById(R.id.img);
             imageView.setOnClickListener(this);
-
-            textView = (TextView) itemView.findViewById(R.id.count);
         }
 
         @Override
@@ -77,14 +78,38 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.VH> {
             ItemModel m = vhDataSet.get(position);
 
 
-
             Intent intent = new Intent(this.vhContext, DetailActivity.class);
-            intent.putExtra("OVER_VIEW_KEY",m.getOver_view());
+            intent.putExtra("OVER_VIEW_KEY", m.getOver_view());
             intent.putExtra("RELEASE_DATE_KEY", m.getRelease_date());
             intent.putExtra("VOTE_AVERAGE_KEY", m.getVote_average());
             intent.putExtra("IMAGE_KEY", m.getImagePath());
             this.vhContext.startActivity(intent);
 
+           /* DetailsFragment fragment = new DetailsFragment();
+            fragment.setArguments(arguments);
+            ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.item_detail_container, fragment)
+                    .commit();*/
+
+            /*   Bundle b = new Bundle();
+            b.putString("OVER_VIEW_KEY", m.getOver_view());
+            b.putString("RELEASE_DATE_KEY", m.getRelease_date());
+            b.putString("VOTE_AVERAGE_KEY", m.getVote_average());
+            b.putString("IMAGE_KEY", m.getImagePath());*/
+
+/*
+            if (MainActivity.mTWO_PANE) {
+                DetailFragment detailFragment = new DetailFragment();
+                detailFragment.setArguments(b);
+
+                ((MainActivity) vhContext).getSupportFragmentManager().beginTransaction()
+                        .add(R.id.detail_container, detailFragment)
+                        .commit();
+            } else {
+
+                 intent = new Intent(this.vhContext, DetailActivity.class);
+                this.vhContext.startActivity(intent, b);
+            }*/
 
 
         }

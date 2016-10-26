@@ -87,7 +87,13 @@ public class ItemFragment extends Fragment {
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
 
-        mLayoutManager = new GridLayoutManager(getActivity(), 2);
+        if (MainActivity.mTWO_PANE){
+            mLayoutManager = new GridLayoutManager(getActivity(),3);
+        }
+        else {
+            mLayoutManager = new GridLayoutManager(getActivity(), 2);
+        }
+
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
