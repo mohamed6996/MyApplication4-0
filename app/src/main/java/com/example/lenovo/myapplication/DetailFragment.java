@@ -32,14 +32,40 @@ public class DetailFragment extends Fragment {
         overView = (TextView) view.findViewById(R.id.over_view);
         releaseDate = (TextView) view.findViewById(R.id.release_date);
         voteAvg = (TextView) view.findViewById(R.id.vote_average);
-
         image_path = (ImageView) view.findViewById(R.id.img);
-        String full_image = Constants.IMG_BASE + getActivity().getIntent().getStringExtra("IMAGE_KEY");
 
-        overView.setText(getActivity().getIntent().getStringExtra("OVER_VIEW_KEY"));
-        releaseDate.setText(getActivity().getIntent().getStringExtra("RELEASE_DATE_KEY"));
-        voteAvg.setText(getActivity().getIntent().getStringExtra("VOTE_AVERAGE_KEY"));
-        Glide.with(this).load(full_image).into(image_path);
+
+
+
+/*
+        Bundle bundle = getArguments();
+        overView.setText(bundle.getString("OVER_VIEW_KEY"));
+        releaseDate.setText(bundle.getString("RELEASE_DATE_KEY"));
+        voteAvg.setText(bundle.getString("VOTE_AVERAGE_KEY"));
+
+        String full_image = Constants.IMG_BASE + bundle.getString("IMAGE_KEY");
+        Glide.with(this).load(full_image).into(image_path);*/
+
+
+        if (MainActivity.mTWO_PANE) {
+            Bundle bundle = getArguments();
+            overView.setText(bundle.getString("OVER_VIEW_KEY"));
+            releaseDate.setText(bundle.getString("RELEASE_DATE_KEY"));
+            voteAvg.setText(bundle.getString("VOTE_AVERAGE_KEY"));
+
+            String full_image = Constants.IMG_BASE + bundle.getString("IMAGE_KEY");
+            Glide.with(this).load(full_image).into(image_path);
+
+
+        } else {
+            String full_image = Constants.IMG_BASE + getActivity().getIntent().getStringExtra("IMAGE_KEY");
+
+            overView.setText(getActivity().getIntent().getStringExtra("OVER_VIEW_KEY"));
+            releaseDate.setText(getActivity().getIntent().getStringExtra("RELEASE_DATE_KEY"));
+            voteAvg.setText(getActivity().getIntent().getStringExtra("VOTE_AVERAGE_KEY"));
+            Glide.with(this).load(full_image).into(image_path);
+        }
+
 
         return view;
     }

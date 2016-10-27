@@ -78,39 +78,42 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.VH> {
             ItemModel m = vhDataSet.get(position);
 
 
-            Intent intent = new Intent(this.vhContext, DetailActivity.class);
+           /* Intent intent = new Intent(this.vhContext, DetailActivity.class);
             intent.putExtra("OVER_VIEW_KEY", m.getOver_view());
             intent.putExtra("RELEASE_DATE_KEY", m.getRelease_date());
             intent.putExtra("VOTE_AVERAGE_KEY", m.getVote_average());
             intent.putExtra("IMAGE_KEY", m.getImagePath());
-            this.vhContext.startActivity(intent);
+            this.vhContext.startActivity(intent);*/
 
-           /* DetailsFragment fragment = new DetailsFragment();
-            fragment.setArguments(arguments);
-            ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.item_detail_container, fragment)
-                    .commit();*/
 
-            /*   Bundle b = new Bundle();
+/*
+            Bundle b = new Bundle();
             b.putString("OVER_VIEW_KEY", m.getOver_view());
             b.putString("RELEASE_DATE_KEY", m.getRelease_date());
             b.putString("VOTE_AVERAGE_KEY", m.getVote_average());
             b.putString("IMAGE_KEY", m.getImagePath());*/
 
-/*
+
             if (MainActivity.mTWO_PANE) {
                 DetailFragment detailFragment = new DetailFragment();
+                Bundle b = new Bundle();
+                b.putString("OVER_VIEW_KEY", m.getOver_view());
+                b.putString("RELEASE_DATE_KEY", m.getRelease_date());
+                b.putString("VOTE_AVERAGE_KEY", m.getVote_average());
+                b.putString("IMAGE_KEY", m.getImagePath());
                 detailFragment.setArguments(b);
 
                 ((MainActivity) vhContext).getSupportFragmentManager().beginTransaction()
-                        .add(R.id.detail_container, detailFragment)
+                        .replace(R.id.detail_container, detailFragment)
                         .commit();
             } else {
-
-                 intent = new Intent(this.vhContext, DetailActivity.class);
-                this.vhContext.startActivity(intent, b);
-            }*/
-
+                Intent intent = new Intent(this.vhContext, DetailActivity.class);
+                intent.putExtra("OVER_VIEW_KEY", m.getOver_view());
+                intent.putExtra("RELEASE_DATE_KEY", m.getRelease_date());
+                intent.putExtra("VOTE_AVERAGE_KEY", m.getVote_average());
+                intent.putExtra("IMAGE_KEY", m.getImagePath());
+                this.vhContext.startActivity(intent);
+            }
 
         }
     }
