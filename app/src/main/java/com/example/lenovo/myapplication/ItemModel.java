@@ -6,19 +6,20 @@ package com.example.lenovo.myapplication;
 
 public class ItemModel {
 
-    String image_path, film_name, over_view, release_date, vote_average;
+    String image_path, film_name, over_view, release_date, vote_average, id;
 
 
-
-    public ItemModel(String overView, String film_name, String over_view, String releaseDate, String voreAverage) {
+    public ItemModel(String overView, String film_name, String over_view, String releaseDate, String voreAverage, String id) {
         this.film_name = film_name;
         this.image_path = overView;
         this.over_view = over_view;
         this.release_date = releaseDate;
         this.vote_average = voreAverage;
-
+        this.id = id;
 
     }
+
+
 
     public String getImagePath() {
         return image_path;
@@ -58,5 +59,13 @@ public class ItemModel {
 
     public void setVote_average(String vote_average) {
         this.vote_average = vote_average;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

@@ -101,6 +101,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.VH> {
                 b.putString("RELEASE_DATE_KEY", m.getRelease_date());
                 b.putString("VOTE_AVERAGE_KEY", m.getVote_average());
                 b.putString("IMAGE_KEY", m.getImagePath());
+                b.putString("ID_KEY", m.getId());
                 detailFragment.setArguments(b);
 
                 ((MainActivity) vhContext).getSupportFragmentManager().beginTransaction()
@@ -112,6 +113,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.VH> {
                 intent.putExtra("RELEASE_DATE_KEY", m.getRelease_date());
                 intent.putExtra("VOTE_AVERAGE_KEY", m.getVote_average());
                 intent.putExtra("IMAGE_KEY", m.getImagePath());
+                intent.putExtra("ID_KEY", m.getId());
                 this.vhContext.startActivity(intent);
             }
 
