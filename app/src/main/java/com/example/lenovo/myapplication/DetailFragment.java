@@ -54,7 +54,7 @@ public class DetailFragment extends Fragment {
             voteAvg.setText(bundle.getString("VOTE_AVERAGE_KEY"));
 
             String full_image = Constants.IMG_BASE + bundle.getString("IMAGE_KEY");
-            Glide.with(this).load(full_image).into(image_path);
+            Glide.with(this).load(full_image).placeholder(R.drawable.ic_dots).into(image_path);
 
 
         } else {
@@ -63,7 +63,7 @@ public class DetailFragment extends Fragment {
             overView.setText(getActivity().getIntent().getStringExtra("OVER_VIEW_KEY"));
             releaseDate.setText(getActivity().getIntent().getStringExtra("RELEASE_DATE_KEY"));
             voteAvg.setText(getActivity().getIntent().getStringExtra("VOTE_AVERAGE_KEY"));
-            Glide.with(this).load(full_image).into(image_path);
+            Glide.with(this).load(full_image).placeholder(R.drawable.ic_dots).into(image_path);
         }
 
 

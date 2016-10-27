@@ -1,6 +1,7 @@
 package com.example.lenovo.myapplication;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -20,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,6 +44,8 @@ public class ItemFragment extends Fragment {
 
     private List<ItemModel> mDataSet;
 
+    public static int type;
+
     public ItemFragment() {
         // Required empty public constructor
     }
@@ -51,7 +57,22 @@ public class ItemFragment extends Fragment {
         setHasOptionsMenu(true);
         mDataSet = new ArrayList<>();
 
-        initDataset(Constants.POPULAR);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("PREF_NAME", getActivity().MODE_PRIVATE);
+        sharedPreferences.getInt("PREF_NAME", 0);
+        sharedPreferences.getInt("top", 0);
+
+        switch (type) {
+            case 1:
+                initDataset(Constants.POPULAR);
+                break;
+            case 2:
+                initDataset(Constants.TOP_RATED);
+                break;
+            default:
+                initDataset(Constants.POPULAR);
+
+        }
+
     }
 
     @Override
@@ -65,17 +86,25 @@ public class ItemFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("PREF_NAME", getActivity().MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
         int id = item.getItemId();
         if (id == R.id.popular) {
+            type = 1;
+            editor.putInt("popular", 1);
             if (mDataSet != null) mDataSet.clear();
             initDataset(Constants.POPULAR);
             return true;
         }
         if (id == R.id.top_rated) {
+            type = 2;
+            editor.putInt("top", 2);
             if (mDataSet != null) mDataSet.clear();
             initDataset(Constants.TOP_RATED);
             return true;
         }
+        editor.apply();
         return super.onOptionsItemSelected(item);
     }
 
@@ -87,10 +116,10 @@ public class ItemFragment extends Fragment {
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
 
-        if (MainActivity.mTWO_PANE){
-            mLayoutManager = new GridLayoutManager(getActivity(),3);
-        }
-        else {
+
+        if (MainActivity.mTWO_PANE) {
+            mLayoutManager = new GridLayoutManager(getActivity(), 3);
+        } else {
             mLayoutManager = new GridLayoutManager(getActivity(), 2);
         }
 
@@ -104,9 +133,9 @@ public class ItemFragment extends Fragment {
         return rootView;
     }
 
+
     private void initDataset(String url) {
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -148,7 +177,7 @@ public class ItemFragment extends Fragment {
                     }
                 });
 
-     //   requestQueue.add(stringRequest);
+        //   requestQueue.add(stringRequest);
         MySingleton.getInstance(getActivity().getApplicationContext()).addToRequestQueue(stringRequest);
 
 
